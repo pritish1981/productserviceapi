@@ -2,6 +2,9 @@ package com.scaler.productserviceapi.controllers;
 
 import com.scaler.productserviceapi.models.Product;
 import com.scaler.productserviceapi.services.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,18 +22,18 @@ public class ProductController {
 
     @GetMapping("/{id}")
     //Ideally should return a Product DTO
-    public Product getProductbyId(@PathVariable("id") Long id) {
-        return productService.getProductById(id);
+    public ResponseEntity<Product> getProductbyId(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     @GetMapping
     public List<Product> getAllProducts() {
-        return new ArrayList<>();
+        return productService.getAllProducts();
     }
 
     @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.createProduct(product),HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -40,7 +43,7 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return new Product();
+        return productService.updateProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
