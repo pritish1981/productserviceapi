@@ -40,7 +40,7 @@ public class FakeProductService implements ProductService{
     @Override
     public Product updateProduct(Long id, Product product) {
         FakeStoreProductDto fakeStoreProductDto = convertProductToDto(product);
-        fakeStoreProductDto = restTemplate.patchForObject("https://fakestoreapi.com/products/" + id,fakeStoreProductDto, FakeStoreProductDto.class);
+        fakeStoreProductDto = restTemplate.patchForObject("https://fakestoreapi.com/products/" + id, fakeStoreProductDto, FakeStoreProductDto.class);
         return convertDtoToProduct(fakeStoreProductDto);
     }
 

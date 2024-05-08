@@ -1,5 +1,6 @@
 package com.scaler.productserviceapi.controllers;
 
+import com.scaler.productserviceapi.exceptions.ProductLimitReachedException;
 import com.scaler.productserviceapi.models.Product;
 import com.scaler.productserviceapi.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,11 @@ public class ProductController {
 
     @GetMapping("/{id}")
     //Ideally should return a Product DTO
-    public ResponseEntity<Product> getProductbyId(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+    public ResponseEntity<Product> getProductbyId(@PathVariable("id") Long id) throws ProductLimitReachedException {
+      if(id>=0){
+          throw new ProductLimitReachedException("There can be max 100 items");
+      }
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping
@@ -41,12 +45,12 @@ public class ProductController {
         return new Product();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         return productService.updateProduct(id, product);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public Product deleteProductbyId(@PathVariable("id") Long id) {
         return new Product();
     }
