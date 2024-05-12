@@ -11,6 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Get - Getting a product
+    Delete - Delete a product
+    Post - Create a product
+    Put - Replace a product
+    Patch - Updating a product
+
+    Get product - modify - put
+ */
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -24,10 +34,10 @@ public class ProductController {
     @GetMapping("/{id}")
     //Ideally should return a Product DTO
     public ResponseEntity<Product> getProductbyId(@PathVariable("id") Long id) throws ProductLimitReachedException {
-      if(id>=0){
+     /* if(id>=0){
           throw new ProductLimitReachedException("There can be max 100 items");
-      }
-        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.INTERNAL_SERVER_ERROR);
+      }*/
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     @GetMapping
