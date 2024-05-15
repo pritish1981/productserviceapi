@@ -1,7 +1,6 @@
 package com.scaler.productserviceapi.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +12,6 @@ public class Product extends BaseModel{
     private String title;
     private double price;
     @ManyToOne
-    @JoinColumn
     private Category category;
     private String description;
 }
