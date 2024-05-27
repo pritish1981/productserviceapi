@@ -3,6 +3,7 @@ package com.scaler.productserviceapi.controllers;
 import com.scaler.productserviceapi.exceptions.ProductLimitReachedException;
 import com.scaler.productserviceapi.models.Product;
 import com.scaler.productserviceapi.services.ProductService;
+import com.scaler.productserviceapi.services.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -26,17 +27,19 @@ import java.util.List;
 public class ProductController {
 
     private ProductService productService;
+    private TokenService tokenService;
 
-    ProductController(ProductService productService) {
+    ProductController(ProductService productService, TokenService tokenService) {
         this.productService = productService;
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/{id}")
     //Ideally should return a Product DTO
-    public ResponseEntity<Product> getProductbyId(@PathVariable("id") Long id) throws ProductLimitReachedException {
-     /* if(id>=0){
-          throw new ProductLimitReachedException("There can be max 100 items");
-      }*/
+    public ResponseEntity<Product> getProductbyId(@RequestHeader("token") String token, @PathVariable("id") Long id) throws ProductLimitReachedException {
+    if(!tokenService.validateToken(token)){
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
