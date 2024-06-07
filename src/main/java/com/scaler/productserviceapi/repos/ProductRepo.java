@@ -19,10 +19,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     Product save(Product product);//create and update
 
     //HQL
-   // @Query("select p.title as title, p.description as description from Product p where p.id=:id")
-   // ProductwithTitleAndDesc someRandomQuery(@Param("id") Long id);
+   @Query("select p.title as title, p.description as description from Product p where p.id=:id")
+   ProductwithTitleAndDesc someRandomQuery(@Param("id") Long id);
 
     //SQL
-   // @Query(value = "select title, description from product where id = :id", nativeQuery = true)
-   // ProductwithTitleAndDesc someRandomQuery1(@Param("id") Long id);
+   @Query(value = "select title, description from product where id = :id", nativeQuery = true)
+   ProductwithTitleAndDesc someRandomQuery1(@Param("id") Long id);
 }
