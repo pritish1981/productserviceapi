@@ -8,7 +8,7 @@ import lombok.Setter;
 public class SearchRequestDto {
     String keyword;
     int pageNUmber;
-    int pageize;
+    int pageSize;
 
 
 }

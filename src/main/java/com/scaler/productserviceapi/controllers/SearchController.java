@@ -19,7 +19,7 @@ public class SearchController {
     }
     @PostMapping
     public List<Product> search(@RequestBody SearchRequestDto searchDto){
-      return searchService.search(searchDto.getKeyword(), searchDto.getPageNUmber(), searchDto.getPageize());
+      return searchService.search(searchDto.getKeyword(), searchDto.getPageNUmber(), searchDto.getPageSize());
     }
 }
 
